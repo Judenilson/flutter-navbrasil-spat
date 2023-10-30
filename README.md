@@ -1,2 +1,3 @@
-# flutter-navbrasil-spat
-Asset management system at the company Nav Brasil.
+# navbrasil_spat
+
+A new Flutter project.
