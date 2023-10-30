@@ -173,7 +173,7 @@ class _QRCodePageState extends State<QRCodePage> {
                       child: ListTile(
                         tileColor: Colors.blueGrey[600],
                         shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          borderRadius: BorderRadius.all(Radius.circular(6)),
                         ),
                         dense: false,
                         contentPadding: EdgeInsets.zero,
@@ -183,7 +183,7 @@ class _QRCodePageState extends State<QRCodePage> {
                           backgroundColor: Colors.blueGrey,
                           child: Text(
                             '${index + 1}',
-                          ),
+                          ),                          
                         ),
                         trailing: Text(equipment.state),
                         onLongPress: () {
