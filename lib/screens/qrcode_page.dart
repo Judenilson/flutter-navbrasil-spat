@@ -24,7 +24,7 @@ class _QRCodePageState extends State<QRCodePage> {
       location: 'Estação Rádio',
     ),
     Equipment(
-      id: '10320982x',
+      id: '10320982',
       name: 'Monitor EMS',
       description: 'Monitor Dell Preto 17 Polegadas',
       state: '-',
