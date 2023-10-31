@@ -14,6 +14,7 @@ class MainApp extends StatelessWidget {
       title: 'NAV Brasil SPAT',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        useMaterial3: true,
         brightness: Brightness.dark,
         scaffoldBackgroundColor: Colors.grey[900],
         elevatedButtonTheme: ElevatedButtonThemeData(

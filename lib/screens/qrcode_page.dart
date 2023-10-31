@@ -124,14 +124,71 @@ class _QRCodePageState extends State<QRCodePage> {
 
     setState(() {
       _scanBarcode = barcodeScanRes;
+      if (_scanBarcode != '-1') {
+        _showScanAlert();
+      }
     });
+  }
+
+  Future<void> _showScanAlert() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Escaneado'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                if (_scanBarcode != '')
+                  Text(
+                    'Plaqueta $_scanBarcode',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                else
+                  const Text(
+                    'Erro de Leitura, tente novamente',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("NAV Brasil - SPAT"),
+        title: Column(
+          children: [
+            const Text('NAV Brasil - SPAT'),
+            Text(
+              'Estação Rádio',
+              style: TextStyle(
+                color: Colors.amber[800],
+              ),
+            ),
+          ],
+        ),
         centerTitle: true,
         backgroundColor: Colors.blueGrey,
         elevation: 0,
@@ -149,29 +206,23 @@ class _QRCodePageState extends State<QRCodePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              const SizedBox(
+                height: 20,
+              ),
               ElevatedButton.icon(
                 onPressed: () => scanQR(),
                 icon: const Icon(Icons.qr_code),
-                label: const Text('Escanear QRCode'),
+                label: const Text('Checar Plaqueta'),
               ),
-              if (_scanBarcode != '')
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 24.0),
-                  child: Text(
-                    'Código Lido: $_scanBarcode',
-                    style: const TextStyle(fontSize: 20),
-                  ),
-                ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: List.generate(
                   listEquipment.length,
                   (int index) {
                     Equipment equipment = listEquipment[index];
-                    return Padding(
-                      padding: const EdgeInsets.fromLTRB(12, 3, 12, 3),
+                    return Container(
+                      padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
                       child: ListTile(
-                        tileColor: Colors.blueGrey[600],
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(6)),
                         ),
@@ -180,10 +231,10 @@ class _QRCodePageState extends State<QRCodePage> {
                         title: Text('${equipment.id} - ${equipment.name}'),
                         subtitle: Text(equipment.description),
                         leading: CircleAvatar(
-                          backgroundColor: Colors.blueGrey,
+                          backgroundColor: Colors.blueGrey[800],
                           child: Text(
                             '${index + 1}',
-                          ),                          
+                          ),
                         ),
                         trailing: Text(equipment.state),
                         onLongPress: () {
