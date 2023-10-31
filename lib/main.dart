@@ -20,7 +20,7 @@ class MainApp extends StatelessWidget {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             foregroundColor: Colors.black,
-            backgroundColor: const Color.fromARGB(255, 22, 151, 202),
+            backgroundColor: Colors.lightGreenAccent[400],
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 36),
             textStyle:
                 const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),

@@ -20,11 +20,11 @@ class _QRCodePageState extends State<QRCodePage> {
       id: '10301469',
       name: 'Computador EMS',
       description: 'Computador HP Compaq 8200 Preto',
-      state: 'OK',
+      state: '-',
       location: 'Estação Rádio',
     ),
     Equipment(
-      id: '10320982',
+      id: '10320982x',
       name: 'Monitor EMS',
       description: 'Monitor Dell Preto 17 Polegadas',
       state: '-',
@@ -131,6 +131,10 @@ class _QRCodePageState extends State<QRCodePage> {
   }
 
   Future<void> _showScanAlert() async {
+    var asset =
+        listEquipment.singleWhere((element) => element.id == _scanBarcode);
+    asset.state = 'OK';
+
     return showDialog<void>(
       context: context,
       barrierDismissible: true,
@@ -141,14 +145,17 @@ class _QRCodePageState extends State<QRCodePage> {
             child: ListBody(
               children: <Widget>[
                 if (_scanBarcode != '')
-                  Text(
-                    'Plaqueta $_scanBarcode',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                  Column(children: [
+                    Text(
+                      'Plaqueta $_scanBarcode',
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  )
+                    Text('Nome: ${asset.name}'),
+                  ])
                 else
                   const Text(
                     'Erro de Leitura, tente novamente',
@@ -180,11 +187,18 @@ class _QRCodePageState extends State<QRCodePage> {
       appBar: AppBar(
         title: Column(
           children: [
-            const Text('NAV Brasil - SPAT'),
+            const Text(
+              'NAV Brasil - SPAT',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
             Text(
               'Estação Rádio',
               style: TextStyle(
-                color: Colors.amber[800],
+                color: Colors.lightGreenAccent[400],
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ],
@@ -236,7 +250,9 @@ class _QRCodePageState extends State<QRCodePage> {
                             '${index + 1}',
                           ),
                         ),
-                        trailing: Text(equipment.state),
+                        trailing: equipment.state == 'OK'
+                            ? Icon(Icons.check_circle, color: Colors.lightGreenAccent[400],)
+                            : Icon(Icons.error_outline, color: Colors.redAccent[700],),
                         onLongPress: () {
                           debugPrint("Editar patrimonio ${equipment.id}");
                         },
