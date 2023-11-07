@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:navbrasil_spat/screens/qrcode_page.dart';
+import 'package:navbrasil_spat/screens/sector_page.dart';
 
 void main() {
   runApp(const MainApp());
@@ -28,7 +28,7 @@ class MainApp extends StatelessWidget {
         ),
       ),
       themeMode: ThemeMode.dark,
-      home: const QRCodePage(),
+      home: const SectorPage(),
     );
   }
 }
