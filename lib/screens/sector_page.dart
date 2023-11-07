@@ -19,6 +19,8 @@ class _SectorPageState extends State<SectorPage> {
     Sector(id: '6', name: 'Sala Reunião', locate: 'DNKG'),
     Sector(id: '7', name: 'Sala de Descanso', locate: 'DNKG'),
     Sector(id: '8', name: 'Copa', locate: 'DNKG'),
+    Sector(id: '9', name: 'Chefia', locate: 'DNKG'),
+    Sector(id: '10', name: 'Banheiros', locate: 'DNKG'),
   ];
 
   @override
@@ -67,7 +69,10 @@ class _SectorPageState extends State<SectorPage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const QRCodePage()),
+                    MaterialPageRoute(
+                      builder: (context) => const QRCodePage(),
+                      settings: RouteSettings(arguments: item.name),
+                    ),
                   );
                 },
               );

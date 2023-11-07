@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -183,6 +182,7 @@ class _QRCodePageState extends State<QRCodePage> {
 
   @override
   Widget build(BuildContext context) {
+  final String sectorName = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
       appBar: AppBar(
         title: Column(
@@ -194,7 +194,7 @@ class _QRCodePageState extends State<QRCodePage> {
               ),
             ),
             Text(
-              'Estação Rádio',
+              sectorName,
               style: TextStyle(
                 color: Colors.lightGreenAccent[400],
                 fontSize: 30,
