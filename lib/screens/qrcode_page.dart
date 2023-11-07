@@ -14,7 +14,8 @@ class QRCodePage extends StatefulWidget {
 class _QRCodePageState extends State<QRCodePage> {
   String _scanBarcode = '';
 
-  final List<Equipment> listEquipment = [
+  List<Equipment> listEquipment = [];
+  final List<Equipment> listEquipmentOffline = [
     Equipment(
       id: '10301469',
       name: 'Computador EMS',
@@ -34,70 +35,70 @@ class _QRCodePageState extends State<QRCodePage> {
       name: 'Monitor EMS',
       description: 'Monitor Dell Preto 17 Polegadas',
       state: 'OK',
-      location: 'Estação Rádio',
+      location: 'EMS',
     ),
     Equipment(
       id: '2',
       name: 'Monitor EMS',
       description: 'Monitor Dell Preto 17 Polegadas',
       state: '-',
-      location: 'Estação Rádio',
+      location: 'Depósito',
     ),
     Equipment(
       id: '3',
       name: 'Monitor EMS',
       description: 'Monitor Dell Preto 17 Polegadas',
       state: '-',
-      location: 'Estação Rádio',
+      location: 'Copa',
     ),
     Equipment(
       id: '4',
       name: 'Monitor EMS',
       description: 'Monitor Dell Preto 17 Polegadas',
       state: '-',
-      location: 'Estação Rádio',
+      location: 'Copa',
     ),
     Equipment(
       id: '5',
       name: 'Monitor EMS',
       description: 'Monitor Dell Preto 17 Polegadas',
       state: '-',
-      location: 'Estação Rádio',
+      location: 'Chefia',
     ),
     Equipment(
       id: '6',
       name: 'Monitor EMS',
       description: 'Monitor Dell Preto 17 Polegadas',
       state: '-',
-      location: 'Estação Rádio',
+      location: 'Chefia',
     ),
     Equipment(
       id: '7',
       name: 'Monitor EMS',
       description: 'Monitor Dell Preto 17 Polegadas',
       state: '-',
-      location: 'Estação Rádio',
+      location: 'KT',
     ),
     Equipment(
       id: '8',
       name: 'Monitor EMS',
       description: 'Monitor Dell Preto 17 Polegadas',
       state: 'OK',
-      location: 'Estação Rádio',
+      location: 'KT',
     ),
     Equipment(
       id: '9',
       name: 'Monitor EMS',
       description: 'Monitor Dell Preto 17 Polegadas',
       state: '-',
-      location: 'Estação Rádio',
+      location: 'Banheiros',
     ),
     Equipment(
       id: '10',
       name: 'Monitor EMS',
       description: 'Monitor Dell Preto 17 Polegadas',
       state: 'OK',
-      location: 'Estação Rádio',
+      location: 'Administração',
     ),
   ];
 
@@ -182,7 +183,15 @@ class _QRCodePageState extends State<QRCodePage> {
 
   @override
   Widget build(BuildContext context) {
-  final String sectorName = ModalRoute.of(context)!.settings.arguments as String;
+    final String sectorName =
+        ModalRoute.of(context)!.settings.arguments as String;
+
+    for (var i = 0; i < listEquipmentOffline.length; i++) {
+      if (sectorName == listEquipmentOffline[i].location) {
+        listEquipment.add(listEquipmentOffline[i]);
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Column(
@@ -251,8 +260,14 @@ class _QRCodePageState extends State<QRCodePage> {
                           ),
                         ),
                         trailing: equipment.state == 'OK'
-                            ? Icon(Icons.check_circle, color: Colors.lightGreenAccent[400],)
-                            : Icon(Icons.error_outline, color: Colors.redAccent[700],),
+                            ? Icon(
+                                Icons.check_circle,
+                                color: Colors.lightGreenAccent[400],
+                              )
+                            : Icon(
+                                Icons.error_outline,
+                                color: Colors.redAccent[700],
+                              ),
                         onLongPress: () {
                           debugPrint("Editar patrimonio ${equipment.id}");
                         },
