@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:navbrasil_spat/screens/equipment_page.dart';
+import 'package:navbrasil_spat/screens/qrcode_page.dart';
 import 'package:navbrasil_spat/screens/sector_page.dart';
 
 void main() {
@@ -15,8 +17,8 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: Colors.grey[900],
+        // brightness: Brightness.dark,
+        // scaffoldBackgroundColor: Colors.grey[900],
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             foregroundColor: Colors.black,
@@ -27,7 +29,7 @@ class MainApp extends StatelessWidget {
           ),
         ),
       ),
-      themeMode: ThemeMode.dark,
+      // themeMode: ThemeMode.dark,
       home: const SectorPage(),
     );
   }

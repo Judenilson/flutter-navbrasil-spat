@@ -27,33 +27,11 @@ class _SectorPageState extends State<SectorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Column(
-          children: [
-            const Text(
-              'NAV Brasil',
-              style: TextStyle(
-                color: Colors.black,
-              ),
-            ),
-            Text(
-              'Sistema de Patrimônio',
-              style: TextStyle(
-                color: Colors.blueGrey[900],
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
+        title: const Text(
+          'NAV Brasil - SETORES',
         ),
         centerTitle: true,
-        backgroundColor: Colors.blueGrey,
         elevation: 0,
-        toolbarHeight: 72,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(32),
-          ),
-        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -66,6 +44,7 @@ class _SectorPageState extends State<SectorPage> {
               final item = listSector[index];
               return ListTile(
                 title: Text(item.name),
+                splashColor: Colors.blueGrey,
                 onTap: () {
                   Navigator.push(
                     context,

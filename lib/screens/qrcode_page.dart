@@ -194,33 +194,14 @@ class _QRCodePageState extends State<QRCodePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Column(
-          children: [
-            const Text(
-              'NAV Brasil - SPAT',
-              style: TextStyle(
-                color: Colors.black,
-              ),
-            ),
-            Text(
-              sectorName,
-              style: TextStyle(
-                color: Colors.lightGreenAccent[400],
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.blueGrey,
-        elevation: 0,
-        toolbarHeight: 72,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(32),
+        title: Text(
+          'NAV Brasil - $sectorName',
+          style: const TextStyle(
+            color: Colors.black,
           ),
         ),
+        centerTitle: true,
+        elevation: 0,
       ),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
@@ -230,7 +211,7 @@ class _QRCodePageState extends State<QRCodePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               ElevatedButton.icon(
                 onPressed: () => scanQR(),
@@ -244,8 +225,9 @@ class _QRCodePageState extends State<QRCodePage> {
                   (int index) {
                     Equipment equipment = listEquipment[index];
                     return Container(
-                      padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
+                      padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),                      
                       child: ListTile(
+                        tileColor: const Color.fromARGB(255, 185, 221, 145),
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(6)),
                         ),
@@ -254,7 +236,7 @@ class _QRCodePageState extends State<QRCodePage> {
                         title: Text('${equipment.id} - ${equipment.name}'),
                         subtitle: Text(equipment.description),
                         leading: CircleAvatar(
-                          backgroundColor: Colors.blueGrey[800],
+                          backgroundColor: Colors.blueGrey[200],
                           child: Text(
                             '${index + 1}',
                           ),
