@@ -13,7 +13,7 @@ class Sector {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      ' name': name,
+      'name': name,
       'locate': locate,
     };
   }
