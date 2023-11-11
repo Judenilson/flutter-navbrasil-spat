@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:navbrasil_spat/screens/equipment_page.dart';
-// import 'package:navbrasil_spat/screens/qrcode_page.dart';
-import 'package:navbrasil_spat/screens/sector_page.dart';
+import 'package:navbrasil_spat/screens/data_page.dart';
 
 void main() {
   runApp(const MainApp());
@@ -15,23 +13,19 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       title: 'NAV Brasil SPAT',
       debugShowCheckedModeBanner: false,
-      
+
       theme: ThemeData(
         fontFamily: 'LeagueSpartan',
         useMaterial3: true,
         // brightness: Brightness.dark,
-        // elevatedButtonTheme: ElevatedButtonThemeData(
-        //   style: ElevatedButton.styleFrom(
-        //     // foregroundColor: Colors.black,
-        //     // backgroundColor: Colors.lightGreenAccent[400],
-        //     padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 36),
-        //     textStyle:
-        //         const TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
-        //   ),
-        // ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            textStyle: const TextStyle(color: Colors.black),
+          ),
+        ),
       ),
       // themeMode: ThemeMode.dark,
-      home: const SectorPage(),
+      home: const DataPage(),
     );
   }
 }

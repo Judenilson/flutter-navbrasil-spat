@@ -228,15 +228,15 @@ class _QRCodePageState extends State<QRCodePage> {
                       padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
                       child: ListTile(
                         tileColor: equipment.state == 'OK'
-                            ? MyColors.lightBlue
-                            : MyColors.lightPink,
+                            ? MyColors.navLightGreen
+                            : MyColors.lightRed,
                         shape: RoundedRectangleBorder(
                           borderRadius: const BorderRadius.all(Radius.circular(6)),
                           side: BorderSide(
                               width: 2,
                               color: equipment.state == 'OK'
-                                  ? MyColors.mediumBlue
-                                  : MyColors.mediumPink),
+                                  ? MyColors.navGreen
+                                  : MyColors.mediumRed),
                         ),
                         dense: false,
                         contentPadding: const EdgeInsets.fromLTRB(12, 6, 12, 6),
@@ -270,7 +270,7 @@ class _QRCodePageState extends State<QRCodePage> {
           label: const Text('Conferir'),
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.all(20),
-            backgroundColor: MyColors.blueRed,
+            backgroundColor: MyColors.navGreen,
             foregroundColor: MyColors.baseBackground,
           ),
         ),
