@@ -19,20 +19,16 @@ class _DataPageState extends State<DataPage> {
     final rawData = await rootBundle.loadString('assets/data.CSV');
     List<List<dynamic>> listData =
         const CsvToListConverter(fieldDelimiter: ';').convert(rawData);
-    // debugPrint(data.toString());
     data = listData;
-    // debugPrint(listData.length as String?);
-    // for (int i =0; i< listData.length)
 
     setState(() {
       loadingStatus = true;
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
-    !loadingStatus ? loadCSV() :  null;
+    !loadingStatus ? loadCSV() : null;
 
     return Scaffold(
       body: Container(
@@ -56,15 +52,17 @@ class _DataPageState extends State<DataPage> {
             ),
             const Spacer(),
             ElevatedButton.icon(
-              onPressed: !loadingStatus ? null : () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SectorPage(),
-                    settings: RouteSettings(arguments: data),
-                  ),
-                );
-              },
+              onPressed: !loadingStatus
+                  ? null
+                  : () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SectorPage(),
+                          settings: RouteSettings(arguments: data),
+                        ),
+                      );
+                    },
               label: const Text('Iniciar...'),
               icon: const Icon(Icons.login),
               style: const ButtonStyle(
