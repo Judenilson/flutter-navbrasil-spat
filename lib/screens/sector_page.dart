@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:navbrasil_spat/models/sector.dart';
+import 'package:navbrasil_spat/commom/mycolors.dart';
+import 'package:navbrasil_spat/models/equipment.dart';
 import 'package:navbrasil_spat/screens/qrcode_page.dart';
 
 class SectorPage extends StatefulWidget {
@@ -10,57 +11,91 @@ class SectorPage extends StatefulWidget {
 }
 
 class _SectorPageState extends State<SectorPage> {
-  final List<Sector> listSector = [
-    Sector(id: '1', name: 'Estação Rádio', locate: 'DNKG'),
-    Sector(id: '2', name: 'EMS', locate: 'DNKG'),
-    Sector(id: '3', name: 'Administração', locate: 'DNKG'),
-    Sector(id: '4', name: 'KT', locate: 'DNKG'),
-    Sector(id: '5', name: 'Depósito', locate: 'DNKG'),
-    Sector(id: '6', name: 'Sala Reunião', locate: 'DNKG'),
-    Sector(id: '7', name: 'Sala de Descanso', locate: 'DNKG'),
-    Sector(id: '8', name: 'Copa', locate: 'DNKG'),
-    Sector(id: '9', name: 'Chefia', locate: 'DNKG'),
-    Sector(id: '10', name: 'Banheiros', locate: 'DNKG'),
-  ];
+  final List<Equipment> listEquipment = [];
+  final List<String> listSectors = [];
+
+  //0 entidade
+  //1 nr_patrimonio
+  //2 imagem
+  //3 Dependência
+  //4 proprietario
+  //5 vinculado
+  //6 descricao_bem
+  //7 valor
+  //8 localizacao
+  //9 matricula
+  //10 responsavel
+  //11 Tipo Bem
+  //12 Situação do Bem
+  //13 Observações
 
   @override
   Widget build(BuildContext context) {
+    final List<List<dynamic>> data =
+        ModalRoute.of(context)!.settings.arguments as List<List<dynamic>>;
+
+    for (var i in data) {
+      listEquipment.add(Equipment(
+          id: i[1].toString(),
+          name: i[6].toString(),
+          description: i[13],
+          location: (i[8] == "") ? "INDEFINIDO" : i[8],
+          state: ""));
+      bool putItem = true;
+      for (var j = 0; j < listSectors.length; j++) {
+        if (i[8] == listSectors[j] || i[8] == "") {
+          putItem = false;
+          break;
+        }
+      }
+      if (putItem) {
+        listSectors.add(i[8]);
+      }
+    }
+
+    debugPrint(listSectors.toString());
+    debugPrint(listSectors.length.toString());
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'NAV Brasil - SETORES',
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              'SETORES',
+            ),
+            Image.asset(
+              'assets/images/nav_logo.png',
+              fit: BoxFit.contain,
+              height: 36,
+            ),
+          ],
         ),
         centerTitle: true,
         elevation: 0,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: List.generate(
-            listSector.length,
-            (index) {
-              final item = listSector[index];
-              return ListTile(
-                title: Text(item.name),
-                splashColor: Colors.blueGrey,
+        child: ListView.builder(
+          itemCount: listSectors.length,
+          itemBuilder: (context, int index) {
+            final item = listSectors[index];
+            return Card(
+              child: ListTile(
+                title: Text(item),
+                splashColor: MyColors.navLightBlue,
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const QRCodePage(),
-                      settings: RouteSettings(arguments: item.name),
+                      settings: RouteSettings(arguments: item),
                     ),
                   );
                 },
-              );
-            },
-          ),
-          // ElevatedButton(
-          //   onPressed: () {},
-          //   child: const Text('nav'),
-          // ),
+              ),
+            );
+          },
         ),
       ),
     );
