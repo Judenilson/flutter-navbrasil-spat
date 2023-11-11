@@ -42,3 +42,23 @@ flutter:
           weight: 200
         - asset: fonts/LeagueSpartan-Thin.ttf
           weight: 100
+    - family: LexendDeca
+      fonts:
+        - asset: fonts/LexendDeca-Black.ttf
+          weight: 900
+        - asset: fonts/LexendDeca-Bold.ttf
+          weight: 800
+        - asset: fonts/LexendDeca-ExtraBold.ttf
+          weight: 700
+        - asset: fonts/LexendDeca-ExtraLight.ttf
+          weight: 600
+        - asset: fonts/LexendDeca-Light.ttf
+          weight: 500
+        - asset: fonts/LexendDeca-Medium.ttf
+          weight: 400
+        - asset: fonts/LexendDeca-Regular.ttf
+          weight: 300
+        - asset: fonts/LexendDeca-SemiBold.ttf
+          weight: 200
+        - asset: fonts/LexendDeca-Thin.ttf
+          weight: 100
