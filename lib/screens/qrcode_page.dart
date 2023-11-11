@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:navbrasil_spat/commom/mycolors.dart';
 import 'package:navbrasil_spat/models/equipment.dart';
 
 class QRCodePage extends StatefulWidget {
@@ -25,9 +26,9 @@ class _QRCodePageState extends State<QRCodePage> {
     ),
     Equipment(
       id: '10320982',
-      name: 'Monitor EMS',
+      name: 'Monitor EMS 23" Ultra HD Com Drivers Novos e Bacana',
       description: 'Monitor Dell Preto 17 Polegadas',
-      state: '-',
+      state: 'OK',
       location: 'Estação Rádio',
     ),
     Equipment(
@@ -63,7 +64,7 @@ class _QRCodePageState extends State<QRCodePage> {
       name: 'Monitor EMS',
       description: 'Monitor Dell Preto 17 Polegadas',
       state: '-',
-      location: 'Chefia',
+      location: 'Estação Rádio',
     ),
     Equipment(
       id: '6',
@@ -192,63 +193,65 @@ class _QRCodePageState extends State<QRCodePage> {
       }
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'NAV Brasil - $sectorName',
-          style: const TextStyle(
-            color: Colors.black,
-          ),
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [MyColors.topBackground, MyColors.baseBackground],
         ),
-        centerTitle: true,
-        elevation: 0,
       ),
-      body: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton.icon(
-                onPressed: () => scanQR(),
-                icon: const Icon(Icons.qr_code),
-                label: const Text('Checar Plaqueta'),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: Text(
+            'NAV Brasil - $sectorName',
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 22,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          centerTitle: true,
+          elevation: 0,
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                shrinkWrap: true,
                 children: List.generate(
                   listEquipment.length,
                   (int index) {
                     Equipment equipment = listEquipment[index];
                     return Container(
-                      padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),                      
+                      padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
                       child: ListTile(
-                        tileColor: const Color.fromARGB(255, 185, 221, 145),
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(6)),
+                        tileColor: equipment.state == 'OK'
+                            ? MyColors.lightBlue
+                            : MyColors.lightPink,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: const BorderRadius.all(Radius.circular(6)),
+                          side: BorderSide(
+                              width: 2,
+                              color: equipment.state == 'OK'
+                                  ? MyColors.mediumBlue
+                                  : MyColors.mediumPink),
                         ),
                         dense: false,
-                        contentPadding: EdgeInsets.zero,
+                        contentPadding: const EdgeInsets.fromLTRB(12, 6, 12, 6),
                         title: Text('${equipment.id} - ${equipment.name}'),
+                        titleTextStyle: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16),
                         subtitle: Text(equipment.description),
-                        leading: CircleAvatar(
-                          backgroundColor: Colors.blueGrey[200],
-                          child: Text(
-                            '${index + 1}',
-                          ),
-                        ),
                         trailing: equipment.state == 'OK'
-                            ? Icon(
-                                Icons.check_circle,
-                                color: Colors.lightGreenAccent[400],
+                            ? const Text(
+                                "OK",
                               )
-                            : Icon(
-                                Icons.error_outline,
-                                color: Colors.redAccent[700],
+                            : const Text(
+                                "Conferir",
                               ),
                         onLongPress: () {
                           debugPrint("Editar patrimonio ${equipment.id}");
@@ -258,7 +261,17 @@ class _QRCodePageState extends State<QRCodePage> {
                   },
                 ),
               ),
-            ],
+            ),
+          ],
+        ),
+        floatingActionButton: ElevatedButton.icon(
+          onPressed: () => scanQR(),
+          icon: const Icon(Icons.qr_code),
+          label: const Text('Conferir'),
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.all(20),
+            backgroundColor: MyColors.blueRed,
+            foregroundColor: MyColors.baseBackground,
           ),
         ),
       ),

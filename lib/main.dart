@@ -15,20 +15,20 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       title: 'NAV Brasil SPAT',
       debugShowCheckedModeBanner: false,
+      
       theme: ThemeData(
         fontFamily: 'LeagueSpartan',
         useMaterial3: true,
         // brightness: Brightness.dark,
-        // scaffoldBackgroundColor: Colors.grey[900],
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.black,
-            backgroundColor: Colors.lightGreenAccent[400],
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 36),
-            textStyle:
-                const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-          ),
-        ),
+        // elevatedButtonTheme: ElevatedButtonThemeData(
+        //   style: ElevatedButton.styleFrom(
+        //     // foregroundColor: Colors.black,
+        //     // backgroundColor: Colors.lightGreenAccent[400],
+        //     padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 36),
+        //     textStyle:
+        //         const TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+        //   ),
+        // ),
       ),
       // themeMode: ThemeMode.dark,
       home: const SectorPage(),
