@@ -21,3 +21,24 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+  fonts:
+    - family: LeagueSpartan
+      fonts:
+        - asset: fonts/LeagueSpartan-Black.ttf
+          weight: 900
+        - asset: fonts/LeagueSpartan-Bold.ttf
+          weight: 800
+        - asset: fonts/LeagueSpartan-ExtraBold.ttf
+          weight: 700
+        - asset: fonts/LeagueSpartan-ExtraLight.ttf
+          weight: 600
+        - asset: fonts/LeagueSpartan-Light.ttf
+          weight: 500
+        - asset: fonts/LeagueSpartan-Medium.ttf
+          weight: 400
+        - asset: fonts/LeagueSpartan-Regular.ttf
+          weight: 300
+        - asset: fonts/LeagueSpartan-SemiBold.ttf
+          weight: 200
+        - asset: fonts/LeagueSpartan-Thin.ttf
+          weight: 100

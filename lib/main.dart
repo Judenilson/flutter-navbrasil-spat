@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:navbrasil_spat/screens/equipment_page.dart';
-import 'package:navbrasil_spat/screens/qrcode_page.dart';
+// import 'package:navbrasil_spat/screens/equipment_page.dart';
+// import 'package:navbrasil_spat/screens/qrcode_page.dart';
 import 'package:navbrasil_spat/screens/sector_page.dart';
 
 void main() {
@@ -16,6 +16,7 @@ class MainApp extends StatelessWidget {
       title: 'NAV Brasil SPAT',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: 'LeagueSpartan',
         useMaterial3: true,
         // brightness: Brightness.dark,
         // scaffoldBackgroundColor: Colors.grey[900],
