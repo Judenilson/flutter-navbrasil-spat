@@ -37,9 +37,10 @@ class _SectorPageState extends State<SectorPage> {
     for (var i in data) {
       listEquipment.add(Equipment(
           id: i[1].toString(),
+          image: (i[2] == "") ? "assets/images/nophoto.jpg" : i[2].toString(),
           name: i[6].toString(),
           description: i[13],
-          location: (i[8] == "") ? "INDEFINIDO" : i[8],
+          location: (i[8] == "") ? "INDEFINIDO" : i[8].toString(),
           state: ""));
       bool putItem = true;
       for (var j = 0; j < listSectors.length; j++) {

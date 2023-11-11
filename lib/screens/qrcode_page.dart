@@ -19,6 +19,7 @@ class _QRCodePageState extends State<QRCodePage> {
   final List<Equipment> listEquipmentOffline = [
     Equipment(
       id: '10301469',
+      image: "",
       name: 'Computador EMS',
       description: 'Computador HP Compaq 8200 Preto',
       state: '-',
@@ -26,82 +27,15 @@ class _QRCodePageState extends State<QRCodePage> {
     ),
     Equipment(
       id: '10320982',
+      image: "",
       name: 'Monitor EMS 23" Ultra HD Com Drivers Novos e Bacana',
       description: 'Monitor Dell Preto 17 Polegadas',
       state: 'OK',
       location: 'Estação Rádio',
     ),
-    Equipment(
-      id: '1',
-      name: 'Monitor EMS',
-      description: 'Monitor Dell Preto 17 Polegadas',
-      state: 'OK',
-      location: 'EMS',
-    ),
-    Equipment(
-      id: '2',
-      name: 'Monitor EMS',
-      description: 'Monitor Dell Preto 17 Polegadas',
-      state: '-',
-      location: 'Depósito',
-    ),
-    Equipment(
-      id: '3',
-      name: 'Monitor EMS',
-      description: 'Monitor Dell Preto 17 Polegadas',
-      state: '-',
-      location: 'Copa',
-    ),
-    Equipment(
-      id: '4',
-      name: 'Monitor EMS',
-      description: 'Monitor Dell Preto 17 Polegadas',
-      state: '-',
-      location: 'Copa',
-    ),
-    Equipment(
-      id: '5',
-      name: 'Monitor EMS',
-      description: 'Monitor Dell Preto 17 Polegadas',
-      state: '-',
-      location: 'Estação Rádio',
-    ),
-    Equipment(
-      id: '6',
-      name: 'Monitor EMS',
-      description: 'Monitor Dell Preto 17 Polegadas',
-      state: '-',
-      location: 'Chefia',
-    ),
-    Equipment(
-      id: '7',
-      name: 'Monitor EMS',
-      description: 'Monitor Dell Preto 17 Polegadas',
-      state: '-',
-      location: 'KT',
-    ),
-    Equipment(
-      id: '8',
-      name: 'Monitor EMS',
-      description: 'Monitor Dell Preto 17 Polegadas',
-      state: 'OK',
-      location: 'KT',
-    ),
-    Equipment(
-      id: '9',
-      name: 'Monitor EMS',
-      description: 'Monitor Dell Preto 17 Polegadas',
-      state: '-',
-      location: 'Banheiros',
-    ),
-    Equipment(
-      id: '10',
-      name: 'Monitor EMS',
-      description: 'Monitor Dell Preto 17 Polegadas',
-      state: 'OK',
-      location: 'Administração',
-    ),
   ];
+
+
 
   @override
   void initState() {

@@ -1,5 +1,6 @@
-class Equipment{
+class Equipment {
   String id;
+  String image;
   String name;
   String description;
   String location;
@@ -8,6 +9,7 @@ class Equipment{
 
   Equipment({
     required this.id,
+    required this.image,
     required this.name,
     required this.description,
     required this.location,
@@ -16,6 +18,7 @@ class Equipment{
 
   Equipment.fromMap(Map<String, dynamic> map)
       : id = map["id"],
+        image = map["image"],
         name = map["name"],
         description = map["description"],
         location = map["location"],
@@ -25,6 +28,7 @@ class Equipment{
   Map<String, dynamic> toMap() {
     return {
       "id": id,
+      "image": image,
       "name": name,
       "description": description,
       "location": location,
