@@ -42,12 +42,12 @@ class _DataPageState extends State<DataPage> {
             const Divider(),
             const Text(
               "Sistema de Acompanhamento de Patrimônio",
-              style: TextStyle(fontWeight: FontWeight.w600),
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
             ),
             const Divider(),
             const Text(
               'Carregando banco de dados...',
-              style: TextStyle(fontSize: 12),
+              style: TextStyle(fontSize: 16),
             ),
             const Spacer(),
             ElevatedButton.icon(
