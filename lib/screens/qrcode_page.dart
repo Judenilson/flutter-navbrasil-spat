@@ -13,29 +13,30 @@ class QRCodePage extends StatefulWidget {
 }
 
 class _QRCodePageState extends State<QRCodePage> {
+
+  // List<Equipment> listEquipment = [];
+  // final List<Equipment> listEquipmentOffline = [
+  //   Equipment(
+  //     id: '10301469',
+  //     image: "",
+  //     name: 'Computador EMS',
+  //     description: 'Computador HP Compaq 8200 Preto',
+  //     state: '-',
+  //     location: 'KT',
+  //   ),
+  //   Equipment(
+  //     id: '10320982',
+  //     image: "",
+  //     name: 'Monitor EMS 23" Ultra HD Com Drivers Novos e Bacana',
+  //     description: 'Monitor Dell Preto 17 Polegadas',
+  //     state: 'OK',
+  //     location: 'KT',
+  //   ),
+  // ];
+  
   String _scanBarcode = '';
-
-  List<Equipment> listEquipment = [];
-  final List<Equipment> listEquipmentOffline = [
-    Equipment(
-      id: '10301469',
-      image: "",
-      name: 'Computador EMS',
-      description: 'Computador HP Compaq 8200 Preto',
-      state: '-',
-      location: 'Estação Rádio',
-    ),
-    Equipment(
-      id: '10320982',
-      image: "",
-      name: 'Monitor EMS 23" Ultra HD Com Drivers Novos e Bacana',
-      description: 'Monitor Dell Preto 17 Polegadas',
-      state: 'OK',
-      location: 'Estação Rádio',
-    ),
-  ];
-
-
+  List<Equipment> listEquipments = [];
+  List<Equipment> listEquipmentSector= [];
 
   @override
   void initState() {
@@ -67,7 +68,7 @@ class _QRCodePageState extends State<QRCodePage> {
 
   Future<void> _showScanAlert() async {
     var asset =
-        listEquipment.singleWhere((element) => element.id == _scanBarcode);
+        listEquipments.singleWhere((element) => element.id == _scanBarcode);
     asset.state = 'OK';
 
     return showDialog<void>(
@@ -116,16 +117,15 @@ class _QRCodePageState extends State<QRCodePage> {
     );
   }
 
+
+
   @override
   Widget build(BuildContext context) {
-    final String sectorName =
-        ModalRoute.of(context)!.settings.arguments as String;
+    final List<dynamic> args =
+        ModalRoute.of(context)!.settings.arguments as List<dynamic>;
+    listEquipments = args[1];
 
-    for (var i = 0; i < listEquipmentOffline.length; i++) {
-      if (sectorName == listEquipmentOffline[i].location) {
-        listEquipment.add(listEquipmentOffline[i]);
-      }
-    }
+    listEquipmentSector = listEquipments.where((element) => element.location == args[0]).toList();
 
     return Container(
       decoration: const BoxDecoration(
@@ -138,13 +138,18 @@ class _QRCodePageState extends State<QRCodePage> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: Text(
-            'NAV Brasil - $sectorName',
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 22,
-              fontWeight: FontWeight.w600,
-            ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '${args[0]}',
+              ),
+              Image.asset(
+                'assets/images/nav_logo.png',
+                fit: BoxFit.contain,
+                height: 36,
+              ),
+            ],
           ),
           centerTitle: true,
           elevation: 0,
@@ -155,9 +160,9 @@ class _QRCodePageState extends State<QRCodePage> {
               child: ListView(
                 shrinkWrap: true,
                 children: List.generate(
-                  listEquipment.length,
+                  listEquipmentSector.length,
                   (int index) {
-                    Equipment equipment = listEquipment[index];
+                    Equipment equipment = listEquipmentSector[index];
                     return Container(
                       padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
                       child: ListTile(
@@ -165,7 +170,8 @@ class _QRCodePageState extends State<QRCodePage> {
                             ? MyColors.navLightGreen
                             : MyColors.lightRed,
                         shape: RoundedRectangleBorder(
-                          borderRadius: const BorderRadius.all(Radius.circular(6)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(6)),
                           side: BorderSide(
                               width: 2,
                               color: equipment.state == 'OK'
@@ -174,12 +180,12 @@ class _QRCodePageState extends State<QRCodePage> {
                         ),
                         dense: false,
                         contentPadding: const EdgeInsets.fromLTRB(12, 6, 12, 6),
-                        title: Text('${equipment.id} - ${equipment.name}'),
+                        title: Text(equipment.name),
                         titleTextStyle: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w600,
                             fontSize: 16),
-                        subtitle: Text(equipment.description),
+                        subtitle: Text('${equipment.id} ${equipment.description}'),
                         trailing: equipment.state == 'OK'
                             ? const Text(
                                 "OK",
