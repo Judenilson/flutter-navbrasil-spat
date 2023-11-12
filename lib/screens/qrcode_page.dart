@@ -13,30 +13,11 @@ class QRCodePage extends StatefulWidget {
 }
 
 class _QRCodePageState extends State<QRCodePage> {
-
-  // List<Equipment> listEquipment = [];
-  // final List<Equipment> listEquipmentOffline = [
-  //   Equipment(
-  //     id: '10301469',
-  //     image: "",
-  //     name: 'Computador EMS',
-  //     description: 'Computador HP Compaq 8200 Preto',
-  //     state: '-',
-  //     location: 'KT',
-  //   ),
-  //   Equipment(
-  //     id: '10320982',
-  //     image: "",
-  //     name: 'Monitor EMS 23" Ultra HD Com Drivers Novos e Bacana',
-  //     description: 'Monitor Dell Preto 17 Polegadas',
-  //     state: 'OK',
-  //     location: 'KT',
-  //   ),
-  // ];
-  
   String _scanBarcode = '';
   List<Equipment> listEquipments = [];
-  List<Equipment> listEquipmentSector= [];
+  List<Equipment> listEquipmentSector = [];
+  List<Equipment> listEquipmentSectorSort = [];
+  int sortStatus = 0;
 
   @override
   void initState() {
@@ -53,7 +34,7 @@ class _QRCodePageState extends State<QRCodePage> {
       barcodeScanRes = 'Failed to get platform version.';
     }
 
-    // Se o widget foi removido da árvore enquanto a mensagem da plataforma assíncrona
+    //Se o widget foi removido da árvore enquanto a mensagem da plataforma assíncrona
     //estava em trânsito, queremos descartar a resposta em vez de chamar setState para
     //atualizar nossa aparência inexistente.
     if (!mounted) return;
@@ -117,7 +98,19 @@ class _QRCodePageState extends State<QRCodePage> {
     );
   }
 
+  void menuSort(int menuChoise) {
+    if (menuChoise == 3) {
+      listEquipmentSectorSort = listEquipmentSector.where((element) => element.state == "OK").toList();
+    } else if (menuChoise == 2){
+      listEquipmentSectorSort = listEquipmentSector.where((element) => element.state != "OK").toList();
+    } else {
+      listEquipmentSectorSort = listEquipmentSector;
+    }
 
+    setState(() {
+      sortStatus = menuChoise;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +118,10 @@ class _QRCodePageState extends State<QRCodePage> {
         ModalRoute.of(context)!.settings.arguments as List<dynamic>;
     listEquipments = args[1];
 
-    listEquipmentSector = listEquipments.where((element) => element.location == args[0]).toList();
+    listEquipmentSector =
+        listEquipments.where((element) => element.location == args[0]).toList();
+
+    sortStatus == 0 ? menuSort(1) : null;
 
     return Container(
       decoration: const BoxDecoration(
@@ -156,13 +152,84 @@ class _QRCodePageState extends State<QRCodePage> {
         ),
         body: Column(
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Expanded(
+                  child: Container(
+                    width: 10,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border(
+                        bottom: BorderSide(
+                          width: 2,
+                          color: (sortStatus == 1)
+                              ? MyColors.navDarkBlue
+                              : Colors.transparent,
+                        ),
+                      ),
+                    ),
+                    child: TextButton(
+                      onPressed: () {menuSort(1);},
+                      style:
+                          TextButton.styleFrom(foregroundColor: Colors.black),
+                      child: const Text('Todos'),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    width: 10,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border(
+                        bottom: BorderSide(
+                          width: 2,
+                          color: (sortStatus == 2)
+                              ? MyColors.navDarkBlue
+                              : Colors.transparent,
+                        ),
+                      ),
+                    ),
+                    child: TextButton(
+                      onPressed: () {menuSort(2);},
+                      style:
+                          TextButton.styleFrom(foregroundColor: Colors.black),
+                      child: const Text('Verificar'),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    width: 10,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border(
+                        bottom: BorderSide(
+                          width: 2,
+                          color: (sortStatus == 3)
+                              ? MyColors.navDarkBlue
+                              : Colors.transparent,
+                        ),
+                      ),
+                    ),
+                    child: TextButton(
+                      onPressed: () {menuSort(3);},
+                      style:
+                          TextButton.styleFrom(foregroundColor: Colors.black),
+                      child: const Text('Confirmados'),
+                    ),
+                  ),
+                ),
+              ],
+            ),
             Expanded(
               child: ListView(
                 shrinkWrap: true,
                 children: List.generate(
-                  listEquipmentSector.length,
+                  listEquipmentSectorSort.length,
                   (int index) {
-                    Equipment equipment = listEquipmentSector[index];
+                    Equipment equipment = listEquipmentSectorSort[index];
                     return Container(
                       padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
                       child: ListTile(
@@ -185,7 +252,8 @@ class _QRCodePageState extends State<QRCodePage> {
                             color: Colors.black,
                             fontWeight: FontWeight.w600,
                             fontSize: 16),
-                        subtitle: Text('${equipment.id} ${equipment.description}'),
+                        subtitle:
+                            Text('${equipment.id} \n${equipment.description}'),
                         trailing: equipment.state == 'OK'
                             ? const Text(
                                 "OK",
