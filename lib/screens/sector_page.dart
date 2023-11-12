@@ -90,7 +90,7 @@ class _SectorPageState extends State<SectorPage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => const QRCodePage(),
-                      settings: RouteSettings(arguments: item),
+                      settings: RouteSettings(arguments: [item, listEquipment],),
                     ),
                   );
                 },
