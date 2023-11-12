@@ -11,7 +11,6 @@ class DataPage extends StatefulWidget {
 }
 
 class _DataPageState extends State<DataPage> {
-  Widget? bd;
   bool loadingStatus = false;
   List<List<dynamic>> data = [];
 
