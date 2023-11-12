@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:navbrasil_spat/commom/mycolors.dart';
 import 'package:navbrasil_spat/models/equipment.dart';
+import 'package:navbrasil_spat/screens/equipment_page.dart';
 
 class QRCodePage extends StatefulWidget {
   const QRCodePage({Key? key}) : super(key: key);
@@ -48,9 +49,10 @@ class _QRCodePageState extends State<QRCodePage> {
   }
 
   Future<void> _showScanAlert() async {
-    var asset =
-        listEquipments.singleWhere((element) => element.id == _scanBarcode);
+    var asset = listEquipmentSector
+        .singleWhere((element) => element.id == _scanBarcode);
     asset.state = 'OK';
+    // debugPrint(asset.state.toString());
 
     return showDialog<void>(
       context: context,
@@ -100,9 +102,13 @@ class _QRCodePageState extends State<QRCodePage> {
 
   void menuSort(int menuChoise) {
     if (menuChoise == 3) {
-      listEquipmentSectorSort = listEquipmentSector.where((element) => element.state == "OK").toList();
-    } else if (menuChoise == 2){
-      listEquipmentSectorSort = listEquipmentSector.where((element) => element.state != "OK").toList();
+      listEquipmentSectorSort = listEquipmentSector
+          .where((element) => element.state == "OK")
+          .toList();
+    } else if (menuChoise == 2) {
+      listEquipmentSectorSort = listEquipmentSector
+          .where((element) => element.state != "OK")
+          .toList();
     } else {
       listEquipmentSectorSort = listEquipmentSector;
     }
@@ -170,7 +176,9 @@ class _QRCodePageState extends State<QRCodePage> {
                       ),
                     ),
                     child: TextButton(
-                      onPressed: () {menuSort(1);},
+                      onPressed: () {
+                        menuSort(1);
+                      },
                       style:
                           TextButton.styleFrom(foregroundColor: Colors.black),
                       child: const Text('Todos'),
@@ -192,7 +200,9 @@ class _QRCodePageState extends State<QRCodePage> {
                       ),
                     ),
                     child: TextButton(
-                      onPressed: () {menuSort(2);},
+                      onPressed: () {
+                        menuSort(2);
+                      },
                       style:
                           TextButton.styleFrom(foregroundColor: Colors.black),
                       child: const Text('Verificar'),
@@ -214,7 +224,9 @@ class _QRCodePageState extends State<QRCodePage> {
                       ),
                     ),
                     child: TextButton(
-                      onPressed: () {menuSort(3);},
+                      onPressed: () {
+                        menuSort(3);
+                      },
                       style:
                           TextButton.styleFrom(foregroundColor: Colors.black),
                       child: const Text('Confirmados'),
@@ -263,6 +275,15 @@ class _QRCodePageState extends State<QRCodePage> {
                               ),
                         onLongPress: () {
                           debugPrint("Editar patrimonio ${equipment.id}");
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const EquipmentPage(),
+                              settings: RouteSettings(
+                                arguments: equipment,
+                              ),
+                            ),
+                          ).then((value) => setState((){}));
                         },
                       ),
                     );
