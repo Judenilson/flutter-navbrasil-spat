@@ -165,7 +165,7 @@ class _QRCodePageState extends State<QRCodePage> {
                   child: Container(
                     width: 10,
                     decoration: BoxDecoration(
-                      color: Colors.transparent,
+                      color: MyColors.topBackground,
                       border: Border(
                         bottom: BorderSide(
                           width: 2,
@@ -189,7 +189,7 @@ class _QRCodePageState extends State<QRCodePage> {
                   child: Container(
                     width: 10,
                     decoration: BoxDecoration(
-                      color: Colors.transparent,
+                      color: MyColors.topBackground,
                       border: Border(
                         bottom: BorderSide(
                           width: 2,
@@ -213,7 +213,7 @@ class _QRCodePageState extends State<QRCodePage> {
                   child: Container(
                     width: 10,
                     decoration: BoxDecoration(
-                      color: Colors.transparent,
+                      color: MyColors.topBackground,
                       border: Border(
                         bottom: BorderSide(
                           width: 2,
