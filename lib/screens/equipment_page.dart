@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:navbrasil_spat/commom/mycolors.dart';
 import 'package:navbrasil_spat/models/equipment.dart';
+import 'package:navbrasil_spat/screens/change_picture_page.dart';
 
 class EquipmentPage extends StatefulWidget {
   const EquipmentPage({super.key});
@@ -53,7 +54,9 @@ class _EquipmentPageState extends State<EquipmentPage> {
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(width: 1, color: Colors.black12),
-            borderRadius: const BorderRadius.all(Radius.circular(12)),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(12),
+            ),
           ),
           child: Column(
             children: [
@@ -74,14 +77,22 @@ class _EquipmentPageState extends State<EquipmentPage> {
                       child: TextButton(
                         style: TextButton.styleFrom(
                           side: const BorderSide(
-                              color: Color.fromARGB(30, 0, 0, 0),
-                              width: 1),
-                          backgroundColor:
-                              const Color.fromARGB(30, 0, 0, 0),
-                              foregroundColor: const Color.fromARGB(60, 0, 0, 0),
+                              color: Color.fromARGB(30, 0, 0, 0), width: 1),
+                          backgroundColor: const Color.fromARGB(30, 0, 0, 0),
+                          foregroundColor: const Color.fromARGB(60, 0, 0, 0),
                         ),
                         child: const Icon(Icons.edit),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ChangePicturePage(),
+                              settings: RouteSettings(
+                                arguments: equipment,
+                              ),
+                            ),
+                          ).then((value) => setState(() {}));
+                        },
                       ),
                     ),
                   ),
