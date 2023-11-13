@@ -57,11 +57,35 @@ class _EquipmentPageState extends State<EquipmentPage> {
           ),
           child: Column(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.asset(
-                  equipment.image,
-                ),
+              Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.asset(
+                      equipment.image,
+                    ),
+                  ),
+                  Positioned(
+                    top: 5.0,
+                    right: 5.0,
+                    child: SizedBox(
+                      height: 50,
+                      width: 50,
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          side: const BorderSide(
+                              color: Color.fromARGB(30, 0, 0, 0),
+                              width: 1),
+                          backgroundColor:
+                              const Color.fromARGB(30, 0, 0, 0),
+                              foregroundColor: const Color.fromARGB(60, 0, 0, 0),
+                        ),
+                        child: const Icon(Icons.edit),
+                        onPressed: () {},
+                      ),
+                    ),
+                  ),
+                ],
               ),
               Container(
                 height: 20,
