@@ -57,46 +57,56 @@ class _SectorPageState extends State<SectorPage> {
     debugPrint(listSectors.toString());
     debugPrint(listSectors.length.toString());
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              'SETORES',
-            ),
-            Image.asset(
-              'assets/images/nav_logo.png',
-              fit: BoxFit.contain,
-              height: 36,
-            ),
-          ],
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Colors.white, MyColors.baseBackground],
         ),
-        centerTitle: true,
-        elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView.builder(
-          itemCount: listSectors.length,
-          itemBuilder: (context, int index) {
-            final item = listSectors[index];
-            return Card(
-              child: ListTile(
-                title: Text(item),
-                splashColor: MyColors.navLightBlue,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const QRCodePage(),
-                      settings: RouteSettings(arguments: [item, listEquipment],),
-                    ),
-                  );
-                },
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,          
+            children: [
+              const Text(
+                'SETORES',
               ),
-            );
-          },
+              Image.asset(
+                'assets/images/nav_logo.png',
+                fit: BoxFit.contain,
+                height: 36,
+              ),
+            ],
+          ),
+          centerTitle: true,
+          elevation: 0,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ListView.builder(
+            itemCount: listSectors.length,
+            itemBuilder: (context, int index) {
+              final item = listSectors[index];
+              return Card(
+                child: ListTile(
+                  title: Text(item),
+                  splashColor: MyColors.navLightBlue,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const QRCodePage(),
+                        settings: RouteSettings(arguments: [item, listEquipment],),
+                      ),
+                    );
+                  },
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

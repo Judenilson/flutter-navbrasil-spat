@@ -134,7 +134,7 @@ class _QRCodePageState extends State<QRCodePage> {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [MyColors.topBackground, MyColors.baseBackground],
+          colors: [Colors.white, MyColors.baseBackground],
         ),
       ),
       child: Scaffold(
@@ -165,7 +165,7 @@ class _QRCodePageState extends State<QRCodePage> {
                   child: Container(
                     width: 10,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Colors.transparent,
                       border: Border(
                         bottom: BorderSide(
                           width: 2,
@@ -189,7 +189,7 @@ class _QRCodePageState extends State<QRCodePage> {
                   child: Container(
                     width: 10,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Colors.transparent,
                       border: Border(
                         bottom: BorderSide(
                           width: 2,
@@ -213,7 +213,7 @@ class _QRCodePageState extends State<QRCodePage> {
                   child: Container(
                     width: 10,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Colors.transparent,
                       border: Border(
                         bottom: BorderSide(
                           width: 2,

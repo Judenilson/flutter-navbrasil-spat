@@ -25,7 +25,7 @@ class _EquipmentPageState extends State<EquipmentPage> {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [MyColors.topBackground, MyColors.baseBackground],
+          colors: [Colors.white, MyColors.baseBackground],
         ),
       ),
       child: Scaffold(
