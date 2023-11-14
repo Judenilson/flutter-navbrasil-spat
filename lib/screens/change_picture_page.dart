@@ -3,10 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:navbrasil_spat/commom/mycolors.dart';
 import 'package:navbrasil_spat/models/equipment.dart';
-import 'package:camera_camera/camera_camera.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:navbrasil_spat/screens/preview_page.dart';
 import 'package:navbrasil_spat/widgets/anexo.dart';
+import 'package:camera_camera/camera_camera.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ChangePicturePage extends StatefulWidget {
   const ChangePicturePage({super.key});
@@ -19,27 +21,48 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
   File? arquivo;
   final picker = ImagePicker();
 
-  Future getFileFromGallery() async {
+  Future getFileFromGallery(equipment) async {
     XFile? file = await picker.pickImage(source: ImageSource.gallery);
 
-    if (file != null) {
+    if ((file != null) && (await verifyPermission())) {
+      final targetPath = await _localPath;
+      file.saveTo('$targetPath/${equipment.id}.jpg');     
       setState(() => arquivo = File(file.path));
     }
   }
 
-  showPreview(file) async {
-    File? arq = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => PreviewPage(file: file),
-      ),
-    );
-
-    if (arq != null) {
-      setState(() => arquivo = arq);
-      if (!context.mounted) return;
-      Navigator.of(context).pop();
+  static verifyPermission() async {
+    if (await Permission.manageExternalStorage.request().isGranted) {
+      debugPrint('Opening Storage...');
+      return true;
+    } else {
+      openAppSettings(); //Abre as configurações do APP no Android
+      debugPrint('Storage permission denied.');
+      return false;
     }
+  }
+
+  showPreview(file) async {
+    if (await verifyPermission()) {
+      // ignore: use_build_context_synchronously
+      File? arq = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PreviewPage(file: file),
+        ),
+      );
+
+      if (arq != null) {
+        setState(() => arquivo = arq);
+        if (!context.mounted) return;
+        Navigator.of(context).pop();
+      }
+    }
+  }
+
+  Future<String?> get _localPath async {
+    final directory = await getExternalStorageDirectory();
+    return directory?.path;
   }
 
   @override
@@ -107,7 +130,7 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
             OutlinedButton.icon(
               icon: const Icon(Icons.attach_file),
               label: const Text('Selecione um arquivo'),
-              onPressed: () => getFileFromGallery(),
+              onPressed: () => getFileFromGallery(equipment),
             ),
           ],
         ),
