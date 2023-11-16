@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:navbrasil_spat/commom/mycolors.dart';
 import 'package:navbrasil_spat/models/equipment.dart';
@@ -64,8 +66,12 @@ class _EquipmentPageState extends State<EquipmentPage> {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(
-                      equipment.image,
+                    child: Image.file(
+                      File(equipment.image),
+                      errorBuilder: (BuildContext context, Object exception,
+                          StackTrace? stackTrace) {
+                        return Image.asset(equipment.image);
+                      },
                     ),
                   ),
                   Positioned(

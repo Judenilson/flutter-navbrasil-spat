@@ -26,7 +26,8 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
 
     if ((file != null) && (await verifyPermission())) {
       final targetPath = await _localPath;
-      file.saveTo('$targetPath/${equipment.id}.jpg');     
+      file.saveTo('$targetPath/${equipment.id}.jpg');
+      equipment.image = '$targetPath/${equipment.id}.jpg';
       setState(() => arquivo = File(file.path));
     }
   }
@@ -42,21 +43,25 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
     }
   }
 
-  showPreview(file) async {
-    if (await verifyPermission()) {
-      // ignore: use_build_context_synchronously
-      File? arq = await Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => PreviewPage(file: file),
-        ),
-      );
+  showPreview(file, equipment) async {
+    File? arq = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PreviewPage(file: file),
+      ),
+    );
 
-      if (arq != null) {
-        setState(() => arquivo = arq);
-        if (!context.mounted) return;
+    if (arq != null) {
+      setState(() async {
+        arquivo = arq;
+        // Corrigir salvamento
+        final targetPath = _localPath;
+        file.saveTo('$targetPath/${equipment.id}.jpg');
+        equipment.image = '$targetPath/${equipment.id}.jpg';
         Navigator.of(context).pop();
-      }
+      });
+
+      // if (!context.mounted) return;
     }
   }
 
@@ -97,42 +102,44 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
           centerTitle: true,
           elevation: 0,
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            if (arquivo != null) Anexo(arquivo: arquivo!),
-            ElevatedButton.icon(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CameraCamera(
-                    onFile: (file) => showPreview(file),
-                    resolutionPreset: ResolutionPreset.high,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              if (arquivo != null) Anexo(arquivo: arquivo!),
+              ElevatedButton.icon(
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CameraCamera(
+                      onFile: (file) => showPreview(file, equipment),
+                      resolutionPreset: ResolutionPreset.high,
+                    ),
                   ),
                 ),
+                icon: const Icon(Icons.camera_alt),
+                label: const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text('Tire uma foto'),
+                ),
+                style: ElevatedButton.styleFrom(
+                    elevation: 0.0,
+                    textStyle: const TextStyle(
+                      fontSize: 18,
+                    )),
               ),
-              icon: const Icon(Icons.camera_alt),
-              label: const Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Text('Tire uma foto'),
+              const Padding(
+                padding: EdgeInsets.all(12.0),
+                child: Text('ou'),
               ),
-              style: ElevatedButton.styleFrom(
-                  elevation: 0.0,
-                  textStyle: const TextStyle(
-                    fontSize: 18,
-                  )),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Text('ou'),
-            ),
-            OutlinedButton.icon(
-              icon: const Icon(Icons.attach_file),
-              label: const Text('Selecione um arquivo'),
-              onPressed: () => getFileFromGallery(equipment),
-            ),
-          ],
+              OutlinedButton.icon(
+                icon: const Icon(Icons.attach_file),
+                label: const Text('Selecione um arquivo'),
+                onPressed: () => getFileFromGallery(equipment),
+              ),
+            ],
+          ),
         ),
       ),
     );

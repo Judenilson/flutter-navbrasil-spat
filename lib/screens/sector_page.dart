@@ -1,7 +1,10 @@
+import 'dart:io' as io;
+
 import 'package:flutter/material.dart';
 import 'package:navbrasil_spat/commom/mycolors.dart';
 import 'package:navbrasil_spat/models/equipment.dart';
 import 'package:navbrasil_spat/screens/qrcode_page.dart';
+import 'package:path_provider/path_provider.dart';
 
 class SectorPage extends StatefulWidget {
   const SectorPage({super.key});
@@ -13,6 +16,7 @@ class SectorPage extends StatefulWidget {
 class _SectorPageState extends State<SectorPage> {
   final List<Equipment> listEquipment = [];
   final List<String> listSectors = [];
+  bool loadingStatus = false;
 
   //0 entidade
   //1 nr_patrimonio
@@ -29,12 +33,26 @@ class _SectorPageState extends State<SectorPage> {
   //12 Situação do Bem
   //13 Observações
 
+  void _imageLocate() async {
+    final directory = await getExternalStorageDirectory();
+    final targetPath = directory?.path;
+
+    for (Equipment equip in listEquipment){
+      String targetImage = '$targetPath/${equip.id}.jpg';
+      if (await io.File(targetImage).exists()){
+        equip.image = targetImage;
+        debugPrint(equip.image);
+      } 
+    }
+    loadingStatus = true;
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<List<dynamic>> data =
         ModalRoute.of(context)!.settings.arguments as List<List<dynamic>>;
 
-    for (var i in data) {
+    for (var i in data) {    
       listEquipment.add(Equipment(
           id: i[1].toString(),
           image: (i[2] == "") ? "assets/images/nophoto.jpg" : i[2].toString(),
@@ -53,6 +71,7 @@ class _SectorPageState extends State<SectorPage> {
         listSectors.add(i[8]);
       }
     }
+    !loadingStatus ? _imageLocate() : null;
 
     debugPrint(listSectors.toString());
     debugPrint(listSectors.length.toString());
