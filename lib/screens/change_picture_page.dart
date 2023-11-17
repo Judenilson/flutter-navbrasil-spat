@@ -21,15 +21,13 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
 
   Future getImage(equipment, bool type) async {
     XFile? file = await picker.pickImage(
-        source: (type == true) ? ImageSource.camera : ImageSource.gallery);
+        source: (type) ? ImageSource.camera : ImageSource.gallery);
 
     if ((file != null) && (await verifyPermission())) {
-      debugPrint('Salvando imagem...');
-
       final targetPath = await _localPath;
       file.saveTo('$targetPath/${equipment.id}.jpg');
       equipment.image = '$targetPath/${equipment.id}.jpg';
-      debugPrint('Imagem salva em: $targetPath/${equipment.id}.jpg');
+      debugPrint('Image Saved...');
       setState(() => arquivo = File(file.path));
     }
   }
@@ -97,8 +95,10 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
                 ),
                 style: ElevatedButton.styleFrom(
                     elevation: 0.0,
+                    foregroundColor: Colors.black,
                     textStyle: const TextStyle(
                       fontSize: 18,
+                      color: Colors.black,
                     )),
               ),
               const Padding(
@@ -108,6 +108,9 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
               OutlinedButton.icon(
                 icon: const Icon(Icons.attach_file),
                 label: const Text('Selecione um arquivo'),
+                style: const ButtonStyle(
+                  foregroundColor: MaterialStatePropertyAll(Colors.black),
+                ),
                 onPressed: () => getImage(equipment, false),
               ),
             ],

@@ -13,7 +13,7 @@ class EquipmentPage extends StatefulWidget {
 }
 
 class _EquipmentPageState extends State<EquipmentPage> {
-  void verifiedStatus(Equipment equipment) {
+  void applyVerificationStatus(Equipment equipment) {
     (equipment.state == "OK") ? equipment.state = "" : equipment.state = "OK";
     setState(() {});
   }
@@ -85,10 +85,9 @@ class _EquipmentPageState extends State<EquipmentPage> {
                       width: 50,
                       child: TextButton(
                         style: TextButton.styleFrom(
-                          side: const BorderSide(
-                              color: Color.fromARGB(30, 0, 0, 0), width: 1),
-                          backgroundColor: const Color.fromARGB(30, 0, 0, 0),
-                          foregroundColor: const Color.fromARGB(60, 0, 0, 0),
+                          side: const BorderSide(color: Colors.white, width: 1),
+                          backgroundColor: const Color.fromARGB(150, 0, 0, 0),
+                          foregroundColor: Colors.white,
                         ),
                         child: const Icon(Icons.edit),
                         onPressed: () {
@@ -148,7 +147,7 @@ class _EquipmentPageState extends State<EquipmentPage> {
                   ),
                   ElevatedButton.icon(
                     onPressed: () {
-                      verifiedStatus(equipment);
+                      applyVerificationStatus(equipment);
                     },
                     icon: const Icon(Icons.check_circle),
                     label: (equipment.state == "OK")
