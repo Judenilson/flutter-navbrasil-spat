@@ -205,7 +205,7 @@ class _QRCodePageState extends State<QRCodePage> {
                       },
                       style:
                           TextButton.styleFrom(foregroundColor: Colors.black),
-                      child: const Text('Verificar'),
+                      child: const Text('Conferir'),
                     ),
                   ),
                 ),
@@ -229,7 +229,7 @@ class _QRCodePageState extends State<QRCodePage> {
                       },
                       style:
                           TextButton.styleFrom(foregroundColor: Colors.black),
-                      child: const Text('Confirmados'),
+                      child: const Text('Verificados'),
                     ),
                   ),
                 ),
