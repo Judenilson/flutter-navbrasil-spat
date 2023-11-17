@@ -69,16 +69,12 @@ class _EquipmentPageState extends State<EquipmentPage> {
                     width: 340,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12),
-                      child: Align(
-                        // heightFactor: 0.5,
-                        // widthFactor: 0.5,
-                        child: Image.file(
-                          File(equipment.image),
-                          errorBuilder: (BuildContext context, Object exception,
-                              StackTrace? stackTrace) {
-                            return Image.asset(equipment.image);
-                          },
-                        ),
+                      child: Image.file(
+                        File(equipment.image),
+                        errorBuilder: (BuildContext context, Object exception,
+                            StackTrace? stackTrace) {
+                          return Image.asset(equipment.image);
+                        }, fit: BoxFit.cover,
                       ),
                     ),
                   ),
