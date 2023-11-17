@@ -3,9 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:navbrasil_spat/commom/mycolors.dart';
 import 'package:navbrasil_spat/models/equipment.dart';
-import 'package:navbrasil_spat/screens/preview_page.dart';
 import 'package:navbrasil_spat/widgets/anexo.dart';
-import 'package:camera_camera/camera_camera.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -21,13 +19,17 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
   File? arquivo;
   final picker = ImagePicker();
 
-  Future getFileFromGallery(equipment) async {
-    XFile? file = await picker.pickImage(source: ImageSource.gallery);
+  Future getImage(equipment, bool type) async {
+    XFile? file = await picker.pickImage(
+        source: (type == true) ? ImageSource.camera : ImageSource.gallery);
 
     if ((file != null) && (await verifyPermission())) {
+      debugPrint('Salvando imagem...');
+
       final targetPath = await _localPath;
       file.saveTo('$targetPath/${equipment.id}.jpg');
       equipment.image = '$targetPath/${equipment.id}.jpg';
+      debugPrint('Imagem salva em: $targetPath/${equipment.id}.jpg');
       setState(() => arquivo = File(file.path));
     }
   }
@@ -40,28 +42,6 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
       openAppSettings(); //Abre as configurações do APP no Android
       debugPrint('Storage permission denied.');
       return false;
-    }
-  }
-
-  showPreview(file, equipment) async {
-    File? arq = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => PreviewPage(file: file),
-      ),
-    );
-
-    if (arq != null) {
-      setState(() async {
-        arquivo = arq;
-        // Corrigir salvamento
-        final targetPath = _localPath;
-        file.saveTo('$targetPath/${equipment.id}.jpg');
-        equipment.image = '$targetPath/${equipment.id}.jpg';
-        Navigator.of(context).pop();
-      });
-
-      // if (!context.mounted) return;
     }
   }
 
@@ -109,15 +89,7 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
             children: [
               if (arquivo != null) Anexo(arquivo: arquivo!),
               ElevatedButton.icon(
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CameraCamera(
-                      onFile: (file) => showPreview(file, equipment),
-                      resolutionPreset: ResolutionPreset.high,
-                    ),
-                  ),
-                ),
+                onPressed: () => getImage(equipment, true),
                 icon: const Icon(Icons.camera_alt),
                 label: const Padding(
                   padding: EdgeInsets.all(16.0),
@@ -136,7 +108,7 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
               OutlinedButton.icon(
                 icon: const Icon(Icons.attach_file),
                 label: const Text('Selecione um arquivo'),
-                onPressed: () => getFileFromGallery(equipment),
+                onPressed: () => getImage(equipment, false),
               ),
             ],
           ),

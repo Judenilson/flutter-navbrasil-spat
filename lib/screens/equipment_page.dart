@@ -64,14 +64,17 @@ class _EquipmentPageState extends State<EquipmentPage> {
             children: [
               Stack(
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.file(
-                      File(equipment.image),
-                      errorBuilder: (BuildContext context, Object exception,
-                          StackTrace? stackTrace) {
-                        return Image.asset(equipment.image);
-                      },
+                  SizedBox(
+                    height: 300,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.file(
+                        File(equipment.image),
+                        errorBuilder: (BuildContext context, Object exception,
+                            StackTrace? stackTrace) {
+                          return Image.asset(equipment.image);
+                        },
+                      ),
                     ),
                   ),
                   Positioned(
