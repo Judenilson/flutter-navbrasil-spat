@@ -65,15 +65,20 @@ class _EquipmentPageState extends State<EquipmentPage> {
               Stack(
                 children: [
                   SizedBox(
-                    height: 300,
+                    height: 340,
+                    width: 340,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12),
-                      child: Image.file(
-                        File(equipment.image),
-                        errorBuilder: (BuildContext context, Object exception,
-                            StackTrace? stackTrace) {
-                          return Image.asset(equipment.image);
-                        },
+                      child: Align(
+                        // heightFactor: 0.5,
+                        // widthFactor: 0.5,
+                        child: Image.file(
+                          File(equipment.image),
+                          errorBuilder: (BuildContext context, Object exception,
+                              StackTrace? stackTrace) {
+                            return Image.asset(equipment.image);
+                          },
+                        ),
                       ),
                     ),
                   ),
