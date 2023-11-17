@@ -21,7 +21,9 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
 
   Future getImage(equipment, bool type) async {
     XFile? file = await picker.pickImage(
-        source: (type) ? ImageSource.camera : ImageSource.gallery);
+      source: ((type) ? ImageSource.camera : ImageSource.gallery),
+      imageQuality: 20,
+    );
 
     if ((file != null) && (await verifyPermission())) {
       final targetPath = await _localPath;
