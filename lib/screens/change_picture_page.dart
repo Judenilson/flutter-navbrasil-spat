@@ -88,8 +88,7 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               if (arquivo != null) Anexo(arquivo: arquivo!),
-              ElevatedButton.icon(
-                onPressed: () => getImage(equipment, true),
+              OutlinedButton.icon(
                 icon: const Icon(Icons.camera_alt),
                 label: const Padding(
                   padding: EdgeInsets.all(16.0),
@@ -102,6 +101,7 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
                       fontSize: 18,
                       color: Colors.black,
                     )),
+                onPressed: () => getImage(equipment, true),
               ),
               const Padding(
                 padding: EdgeInsets.all(12.0),
@@ -109,10 +109,17 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
               ),
               OutlinedButton.icon(
                 icon: const Icon(Icons.attach_file),
-                label: const Text('Selecione um arquivo'),
-                style: const ButtonStyle(
-                  foregroundColor: MaterialStatePropertyAll(Colors.black),
+                label: const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text('Selecione um arquivo'),
                 ),
+                style: ElevatedButton.styleFrom(
+                    elevation: 0.0,
+                    foregroundColor: Colors.black,
+                    textStyle: const TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                    )),
                 onPressed: () => getImage(equipment, false),
               ),
             ],
