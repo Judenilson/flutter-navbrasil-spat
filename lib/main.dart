@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:navbrasil_spat/screens/data_page.dart';
 
 void main() async {
+  //iniciando Hive
   await Hive.initFlutter();
-  
+  await Hive.openBox('equipment_Box');
+  await Hive.openBox('sector_Box');
+
   runApp(const MainApp());
 }
 
