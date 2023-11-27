@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:navbrasil_spat/commom/mycolors.dart';
-import 'package:navbrasil_spat/models/equipment.dart';
+import 'package:navbrasil_spat/models/equipment_model.dart';
 import 'package:navbrasil_spat/screens/change_picture_page.dart';
 
 class EquipmentPage extends StatefulWidget {

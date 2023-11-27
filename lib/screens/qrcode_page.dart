@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:navbrasil_spat/commom/mycolors.dart';
-import 'package:navbrasil_spat/models/equipment.dart';
+import 'package:navbrasil_spat/models/equipment_model.dart';
 import 'package:navbrasil_spat/screens/equipment_page.dart';
 
 class QRCodePage extends StatefulWidget {

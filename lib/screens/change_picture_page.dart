@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:navbrasil_spat/commom/mycolors.dart';
-import 'package:navbrasil_spat/models/equipment.dart';
+import 'package:navbrasil_spat/models/equipment_model.dart';
 import 'package:navbrasil_spat/widgets/anexo.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
