@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:navbrasil_spat/screens/data_page.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  
   runApp(const MainApp());
 }
 
