@@ -3,7 +3,11 @@ class Sector {
   String name;
   String locate;
 
-  Sector({required this.id, required this.name, required this.locate});
+  Sector({
+    required this.id,
+    required this.name,
+    required this.locate,
+  });
 
   Sector.fromMap(Map<String, dynamic> map)
       : id = map['id'],

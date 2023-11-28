@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:navbrasil_spat/configs/hive_config.dart';
 import 'package:navbrasil_spat/screens/data_page.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); //Este comando é para inicializar widgets antes da MainApp
+
   //iniciando Hive
-  await Hive.initFlutter();
+  await HiveConfig.start();
   await Hive.openBox('equipment_Box');
   await Hive.openBox('sector_Box');
 
