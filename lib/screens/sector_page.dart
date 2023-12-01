@@ -1,21 +1,20 @@
-import 'dart:io' as io;
-
 import 'package:flutter/material.dart';
 import 'package:navbrasil_spat/commom/mycolors.dart';
 import 'package:navbrasil_spat/models/equipment_model.dart';
+import 'package:navbrasil_spat/repositories/equipment_repository.dart';
 import 'package:navbrasil_spat/screens/qrcode_page.dart';
-import 'package:path_provider/path_provider.dart';
 
 class SectorPage extends StatefulWidget {
-  const SectorPage({super.key});
+  final EquipmentRepository repo;
+  const SectorPage({Key? key, required this.repo}) : super(key: key);
 
   @override
   State<SectorPage> createState() => _SectorPageState();
 }
 
 class _SectorPageState extends State<SectorPage> {
-  final List<Equipment> listEquipment = [];
-  final List<String> listSectors = [];
+  late List<Equipment> listEquipment;
+  late List<String> listSectors;
   bool loadingStatus = false;
 
   //0 entidade
@@ -33,48 +32,53 @@ class _SectorPageState extends State<SectorPage> {
   //12 Situação do Bem
   //13 Observações
 
-  void _imageLocate() async {
-    final directory = await getExternalStorageDirectory();
-    final targetPath = directory?.path;
+  // void _imageLocate() async {
+  //   final directory = await getExternalStorageDirectory();
+  //   final targetPath = directory?.path;
 
-    for (Equipment equip in listEquipment){
-      String targetImage = '$targetPath/${equip.id}.jpg';
-      if (await io.File(targetImage).exists()){
-        equip.image = targetImage;
-        debugPrint(equip.image);
-      } 
-    }
-    loadingStatus = true;
-  }
+  //   for (Equipment equip in listEquipment) {
+  //     String targetImage = '$targetPath/${equip.id}.jpg';
+  //     if (await io.File(targetImage).exists()) {
+  //       equip.image = targetImage;
+  //       debugPrint(equip.image);
+  //     }
+  //   }
+  //   loadingStatus = true;
+  // }
 
   @override
   Widget build(BuildContext context) {
-    final List<List<dynamic>> data =
-        ModalRoute.of(context)!.settings.arguments as List<List<dynamic>>;
+    // final List<List<dynamic>> data =
+    //     ModalRoute.of(context)!.settings.arguments as List<List<dynamic>>;
 
-    for (var i in data) {    
-      listEquipment.add(Equipment(
-          id: i[1].toString(),
-          image: (i[2] == "") ? "assets/images/nophoto.jpg" : i[2].toString(),
-          name: i[6].toString(),
-          description: i[13],
-          location: (i[8] == "") ? "INDEFINIDO" : i[8].toString(),
-          state: ""));
-      bool putItem = true;
-      for (var j = 0; j < listSectors.length; j++) {
-        if (i[8] == listSectors[j] || i[8] == "") {
-          putItem = false;
-          break;
-        }
-      }
-      if (putItem) {
-        listSectors.add(i[8]);
-      }
-    }
-    !loadingStatus ? _imageLocate() : null;
+    // for (var i in data) {
+    //   listEquipment.add(Equipment(
+    //       id: i[1].toString(),
+    //       image: (i[2] == "") ? "assets/images/nophoto.jpg" : i[2].toString(),
+    //       name: i[6].toString(),
+    //       description: i[13],
+    //       location: (i[8] == "") ? "INDEFINIDO" : i[8].toString(),
+    //       state: ""));
+    //   bool putItem = true;
+    //   for (var j = 0; j < listSectors.length; j++) {
+    //     if (i[8] == listSectors[j] || i[8] == "") {
+    //       putItem = false;
+    //       break;
+    //     }
+    //   }
+    //   if (putItem) {
+    //     listSectors.add(i[8]);
+    //   }
+    // }
+    // !loadingStatus ? _imageLocate() : null;
+
+    // debugPrint(listSectors.toString());
+    // debugPrint(listSectors.length.toString());
+    // listEquipment = context.watch<EquipmentRepository>();
+    listSectors = widget.repo.getListSectors();
+    listEquipment = widget.repo.getListEquipment();
 
     debugPrint(listSectors.toString());
-    debugPrint(listSectors.length.toString());
 
     return Container(
       decoration: const BoxDecoration(
@@ -88,7 +92,7 @@ class _SectorPageState extends State<SectorPage> {
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,          
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
                 'SETORES',
@@ -108,17 +112,20 @@ class _SectorPageState extends State<SectorPage> {
           child: ListView.builder(
             itemCount: listSectors.length,
             itemBuilder: (context, int index) {
-              final item = listSectors[index];
+              final sector = listSectors[index];
               return Card(
                 child: ListTile(
-                  title: Text(item),
+                  title: Text(sector),
                   splashColor: MyColors.navLightBlue,
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const QRCodePage(),
-                        settings: RouteSettings(arguments: [item, listEquipment],),
+                        builder: (context) => QRCodePage(
+                            sector: sector, equipmentsList: listEquipment),
+                        // settings: RouteSettings(
+                        //   arguments: [sector, listEquipment],
+                        // ),
                       ),
                     );
                   },

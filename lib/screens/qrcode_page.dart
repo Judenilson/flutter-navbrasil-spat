@@ -7,7 +7,11 @@ import 'package:navbrasil_spat/models/equipment_model.dart';
 import 'package:navbrasil_spat/screens/equipment_page.dart';
 
 class QRCodePage extends StatefulWidget {
-  const QRCodePage({Key? key}) : super(key: key);
+  final List<Equipment> equipmentsList;
+  final String sector;
+  const QRCodePage(
+      {Key? key, required this.sector, required this.equipmentsList})
+      : super(key: key);
 
   @override
   State<QRCodePage> createState() => _QRCodePageState();
@@ -120,12 +124,11 @@ class _QRCodePageState extends State<QRCodePage> {
 
   @override
   Widget build(BuildContext context) {
-    final List<dynamic> args =
-        ModalRoute.of(context)!.settings.arguments as List<dynamic>;
-    listEquipments = args[1];
+    listEquipments = widget.equipmentsList;    
 
-    listEquipmentSector =
-        listEquipments.where((element) => element.location == args[0]).toList();
+    listEquipmentSector = listEquipments
+        .where((element) => element.location == widget.sector)
+        .toList();
 
     sortStatus == 0 ? menuSort(1) : null;
 
@@ -144,7 +147,7 @@ class _QRCodePageState extends State<QRCodePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '${args[0]}',
+                widget.sector,
               ),
               Image.asset(
                 'assets/images/nav_logo.png',
@@ -283,7 +286,7 @@ class _QRCodePageState extends State<QRCodePage> {
                                 arguments: equipment,
                               ),
                             ),
-                          ).then((value) => setState((){}));
+                          ).then((value) => setState(() {}));
                         },
                       ),
                     );
