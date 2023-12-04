@@ -32,54 +32,15 @@ class _SectorPageState extends State<SectorPage> {
   //12 Situação do Bem
   //13 Observações
 
-  // void _imageLocate() async {
-  //   final directory = await getExternalStorageDirectory();
-  //   final targetPath = directory?.path;
-
-  //   for (Equipment equip in listEquipment) {
-  //     String targetImage = '$targetPath/${equip.id}.jpg';
-  //     if (await io.File(targetImage).exists()) {
-  //       equip.image = targetImage;
-  //       debugPrint(equip.image);
-  //     }
-  //   }
-  //   loadingStatus = true;
-  // }
+  @override
+  void initState(){
+    super.initState();
+    listSectors = widget.repo.getListSectors();
+    listEquipment = widget.repo.getListEquipment();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // final List<List<dynamic>> data =
-    //     ModalRoute.of(context)!.settings.arguments as List<List<dynamic>>;
-
-    // for (var i in data) {
-    //   listEquipment.add(Equipment(
-    //       id: i[1].toString(),
-    //       image: (i[2] == "") ? "assets/images/nophoto.jpg" : i[2].toString(),
-    //       name: i[6].toString(),
-    //       description: i[13],
-    //       location: (i[8] == "") ? "INDEFINIDO" : i[8].toString(),
-    //       state: ""));
-    //   bool putItem = true;
-    //   for (var j = 0; j < listSectors.length; j++) {
-    //     if (i[8] == listSectors[j] || i[8] == "") {
-    //       putItem = false;
-    //       break;
-    //     }
-    //   }
-    //   if (putItem) {
-    //     listSectors.add(i[8]);
-    //   }
-    // }
-    // !loadingStatus ? _imageLocate() : null;
-
-    // debugPrint(listSectors.toString());
-    // debugPrint(listSectors.length.toString());
-    // listEquipment = context.watch<EquipmentRepository>();
-    listSectors = widget.repo.getListSectors();
-    listEquipment = widget.repo.getListEquipment();
-
-    debugPrint(listSectors.toString());
-
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -123,9 +84,6 @@ class _SectorPageState extends State<SectorPage> {
                       MaterialPageRoute(
                         builder: (context) => QRCodePage(
                             sector: sector, equipmentsList: listEquipment),
-                        // settings: RouteSettings(
-                        //   arguments: [sector, listEquipment],
-                        // ),
                       ),
                     );
                   },

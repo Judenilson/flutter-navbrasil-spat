@@ -27,6 +27,13 @@ class _QRCodePageState extends State<QRCodePage> {
   @override
   void initState() {
     super.initState();
+    listEquipments = widget.equipmentsList;
+
+    listEquipmentSector = listEquipments
+        .where((element) => element.location == widget.sector)
+        .toList();
+
+    sortStatus == 0 ? menuSort(1) : null;
   }
 
   Future<void> scanQR() async {
@@ -124,14 +131,6 @@ class _QRCodePageState extends State<QRCodePage> {
 
   @override
   Widget build(BuildContext context) {
-    listEquipments = widget.equipmentsList;    
-
-    listEquipmentSector = listEquipments
-        .where((element) => element.location == widget.sector)
-        .toList();
-
-    sortStatus == 0 ? menuSort(1) : null;
-
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(

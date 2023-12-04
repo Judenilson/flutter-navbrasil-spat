@@ -67,7 +67,7 @@ class _DataPageState extends State<DataPage> {
               style: TextStyle(fontSize: 16),
             ),
             const Spacer(),
-            EquipmentRepository.dataLoaded
+            !EquipmentRepository.dataLoaded
                 ? const Text('')
                 : ElevatedButton.icon(
                     onPressed: () {
